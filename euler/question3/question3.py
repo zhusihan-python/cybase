@@ -1,9 +1,16 @@
 # 找出整数 600851475143 的最大素数因子
+import math
+
 
 def is_prime(number):
-    for i in range(2, number // 2 + 1):
-        if number % 2 == 0:
-            return False
+    if number == 2:
+        return True
+    elif number % 2 == 0:
+        return True
+    else:
+        for i in range(3, int(math.sqrt(number) + 1), 2):
+            if number % i == 0:
+                return False
     return True
 
 
