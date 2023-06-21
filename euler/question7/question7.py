@@ -34,6 +34,31 @@ def prime_number_pure_math(n=10001):
     return primes[n-1]
 
 
+def prime_number_py_v2():
+    primes = [2]
+    attempt = 3
+    while len(primes) < 10001:
+        if all(attempt % prime != 0 for prime in primes):
+            primes.append(attempt)
+        attempt += 2
+    return primes[-1]
+
+
+# https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes/
+def primes_sieve_py(n):
+    p_n = int(2 * n * math.log(n))       # over-estimate p_n
+    sieve = [True] * p_n                 # everything is prime to start
+    count = 0
+    for i in range(2, p_n):
+        if sieve[i]:                       # still prime?
+            count += 1                     # count it!
+            if count == n:                 # done!
+                return i
+            for j in range(2*i, p_n, i):   # cross off all multiples of i
+                sieve[j] = False
+
+
 if __name__ == "__main__":
     print(prime_number_py())
     print(prime_number_pure_math())
+    print(primes_sieve_py(10001))
